@@ -1,11 +1,5 @@
 # Testes automatizados com Cypress - Básico
 
-👋 Seja bem-vindo(a)!
-
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai adorar este curso. ❤️
-
-## O que você vai aprender
-
 Durante o curso de testes automatizados com Cypress (básico), você vai aprender:
 
 - Como configurar um projeto Cypress do zero
