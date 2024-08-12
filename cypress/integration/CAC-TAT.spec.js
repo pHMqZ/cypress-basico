@@ -14,7 +14,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarq@marq.com')
         cy.get('#open-text-area').type('Teste de preenchimento de campos obrigatórios e envio de formulário', {delay: 0})
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
         
         cy.get('.success').should('be.visible')
     })
@@ -24,7 +24,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarqmarq.com')
         cy.get('#open-text-area').type('Teste')
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
@@ -41,7 +41,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#phone-checkbox').click()
         cy.get('#open-text-area').type('Teste')
         
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
     })
 
     it('Preenchimento e limpeza de campos',() =>{
@@ -52,7 +52,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('Validação de preenchimento de campos obrigatórios',() =>{
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
         cy.get('.error').should('be.visible')
     })
 
