@@ -43,4 +43,22 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         
         cy.get('button[type="submit"]').click()
     })
+
+    it('Preenchimento e limpeza de campos',() =>{
+        cy.get('#firstName').type('Phillip').should('have.value','Phillip').clear().should('have.value','')
+        cy.get('#lastName').type('Marques').should('have.value','Marques').clear().should('have.value','')
+        cy.get('#email').type('phmarq@marq.com').should('have.value','phmarq@marq.com').clear().should('have.value','')
+        cy.get('#phone').type('19987344632').should('have.value','19987344632').clear().should('have.value','')
+    })
+
+    it('Validação de preenchimento de campos obrigatórios',() =>{
+        cy.get('button[type="submit"]').click()
+        cy.get('.error').should('be.visible')
+    })
+
+    it('Envio de formulário com comando customizado',() =>{
+        cy.fillMandatoryFieldsAndSubmit('Phillip', 'Marques', 'phillip@phillip.com')
+
+        cy.get('.success').should('be.visible') 
+    })
   })
