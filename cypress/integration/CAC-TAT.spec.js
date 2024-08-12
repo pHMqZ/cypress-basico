@@ -3,7 +3,8 @@
 describe('Central de Atendimento ao Cliente TAT', function() {
 
     beforeEach(() => cy.visit('./src/index.html'))
-
+    
+    // Teste de localização, preenchimento e clique em elementos
     it('Teste de verificação de titulo', function() {
 
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
@@ -60,5 +61,19 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.fillMandatoryFieldsAndSubmit('Phillip', 'Marques', 'phillip@phillip.com')
 
         cy.get('.success').should('be.visible') 
+    })
+    
+
+    // Testes de seleção de campos de seleção suspensa
+    it('Seleção do produto YouTube, pelo texto',() =>{
+        cy.get('select').select('YouTube').should('have.value','youtube')
+    })
+
+    it('Seleção do produto Mentoria, pelo valor(value)',() =>{
+        cy.get('#product').select('mentoria').should('have.value','mentoria')
+    })
+
+    it('Seleção do produto Mentoria, pelo índice',() =>{
+        cy.get('#product').select(1).should('have.value','blog')
     })
   })
