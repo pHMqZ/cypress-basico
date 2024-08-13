@@ -35,14 +35,15 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .type('abcdef').should('have.value', '')
     })
 
-    it('Validação de obrigatoriedade de telefone', () =>{
+    it.only('Validação de obrigatoriedade de telefone', () =>{
         cy.get('#firstName').type('Phillip')
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarq@marq.com')
-        cy.get('#phone-checkbox').click()
+        cy.get('#phone-checkbox').check()
         cy.get('#open-text-area').type('Teste')
-        
         cy.contains('button','Enviar').click()
+        
+        cy.get('.error').should('be.visible')
     })
 
     it('Preenchimento e limpeza de campos',() =>{
@@ -84,12 +85,23 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', 'feedback')
     })
 
-    it.only('Marcação de cada tipo de atendimento', () =>{
+    it('Marcação de cada tipo de atendimento', () =>{
         cy.get('input[type="radio"]')
             .should('have.length', 3)
             .each(($radio) =>{
                 cy.wrap($radio).check()
                 cy.wrap($radio).should('be.checked')
             })
+    })
+
+    //Teste marcando (e desmarcando) inputs do tipo checkbox
+    it('Marcando ambos checkboxes e após desmarcando o ultimo',() =>{
+        cy.get('input[type="checkbox"]')
+            .check()
+            .should('be.checked')
+            .last()
+            .uncheck()
+            .should('not.be.checked')
+        
     })
   })
