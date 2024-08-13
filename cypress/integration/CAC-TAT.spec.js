@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 describe('Central de Atendimento ao Cliente TAT', function() {
+    const TIME_DIV = 3000
 
     beforeEach(() => cy.visit('./src/index.html'))
     
@@ -11,6 +12,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('Preenchimento de campos obrigatórios e envio de formulário', () => {
+        
+        cy.clock()
+        
         cy.get('#firstName').type('Phillip')
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarq@marq.com')
@@ -18,9 +22,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button','Enviar').click()
         
         cy.get('.success').should('be.visible')
+        
+        cy.tick(TIME_DIV)
+        cy.get('.success').should('not.be.visible')
     })
 
     it('Validação de máscara de e-mail', function(){
+        cy.clock()
+
         cy.get('#firstName').type('Phillip')
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarqmarq.com')
@@ -28,6 +37,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button','Enviar').click()
 
         cy.get('.error').should('be.visible')
+
+        cy.tick(TIME_DIV)
+        cy.get('.error').should('not.be.visible')
     })
 
     it('Validação de preenchimento com valores não numericos no campo telefone', ()=>{
@@ -36,6 +48,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('Validação de obrigatoriedade de telefone', () =>{
+       cy.clock()
+
         cy.get('#firstName').type('Phillip')
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarq@marq.com')
@@ -44,7 +58,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button','Enviar').click()
 
         cy.get('.error').should('be.visible')
+
+        cy.tick(TIME_DIV)
+        cy.get('.error').should('not.be.visible')
     })
+
 
     it('Preenchimento e limpeza de campos',() =>{
         cy.get('#firstName').type('Phillip').should('have.value','Phillip').clear().should('have.value','')
@@ -54,14 +72,26 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it('Validação de preenchimento de campos obrigatórios',() =>{
+        cy.clock()
+
         cy.contains('button','Enviar').click()
+
         cy.get('.error').should('be.visible')
+
+        cy.tick(TIME_DIV)
+        cy.get('.error').should('not.be.visible')
     })
 
+
     it('Envio de formulário com comando customizado',() =>{
+        cy.clock()
+
         cy.fillMandatoryFieldsAndSubmit('Phillip', 'Marques', 'phillip@phillip.com')
 
         cy.get('.success').should('be.visible') 
+
+        cy.tick(TIME_DIV)
+        cy.get('.success').should('not.be.visible')
     })
     
 
