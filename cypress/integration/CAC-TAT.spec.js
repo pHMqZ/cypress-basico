@@ -222,7 +222,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     //Desafio Final - Encontre o gato
-    it.only('Encontre o gato', () => {
+    it('Encontre o gato', () => {
         cy.get('#cat')
           .should('not.be.visible')
           .invoke('show')
