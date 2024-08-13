@@ -221,6 +221,16 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             })
     })
 
-    //Desafio 
+    //Desafio Final - Encontre o gato
+    it.only('Encontre o gato', () => {
+        cy.get('#cat')
+          .should('not.be.visible')
+          .invoke('show')
+          .should('be.visible')
+        cy.get('#title')
+            .invoke('text', 'CAT TAT')
+        cy.get('#subtitle')
+            .invoke('text', 'Desafio concluído')
+    })
 
   })
