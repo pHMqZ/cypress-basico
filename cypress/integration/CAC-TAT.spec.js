@@ -42,10 +42,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.error').should('not.be.visible')
     })
 
-    it('Validação de preenchimento com valores não numericos no campo telefone', ()=>{
-        cy.get('#phone')
-            .type('abcdef').should('have.value', '')
+    Cypress._.times(5, ()=>{
+        it('Validação de preenchimento com valores não numericos no campo telefone', ()=>{
+            cy.get('#phone')
+                .type('abcdef').should('have.value', '')
+        })
     })
+    
 
     it('Validação de obrigatoriedade de telefone', () =>{
        cy.clock()
