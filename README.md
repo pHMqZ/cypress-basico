@@ -1,4 +1,5 @@
 # Testes automatizados com Cypress - Básico
+[![CI](https://github.com/pHMqZ/cypress-basico/actions/workflows/ci.yml/badge.svg)](https://github.com/pHMqZ/cypress-basico/actions/workflows/ci.yml)
 
 Projeto base apresentado no curso da [**Escola Talking About Testing**](https://udemy.com/user/walmyr), para inicialização do uso do Cypress
 
