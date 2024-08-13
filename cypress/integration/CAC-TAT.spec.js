@@ -35,14 +35,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .type('abcdef').should('have.value', '')
     })
 
-    it.only('Validação de obrigatoriedade de telefone', () =>{
+    it('Validação de obrigatoriedade de telefone', () =>{
         cy.get('#firstName').type('Phillip')
         cy.get('#lastName').type('Marques')
         cy.get('#email').type('phmarq@marq.com')
         cy.get('#phone-checkbox').check()
         cy.get('#open-text-area').type('Teste')
         cy.contains('button','Enviar').click()
-        
+
         cy.get('.error').should('be.visible')
     })
 
@@ -103,5 +103,38 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .uncheck()
             .should('not.be.checked')
         
+    })
+
+    //Teste de upload de arquivos
+    it('Seleção de arquivos para upload',() => {
+        cy.get('input[type="file"]#file-upload')
+            .should('not.have.value')
+            .selectFile('./cypress/fixtures/example.json')
+            .should(($input) =>{
+                expect($input[0].files[0].name).to.equal('example.json')
+            })
+           
+    })
+
+    it('Seleção de arquivos através de drag-and-drop',() => {
+        cy.get('input[type="file"]#file-upload')
+            .should('not.have.value')
+            .selectFile('./cypress/fixtures/example.json', { action: 'drag-drop' })
+            .should(($input) =>{
+                expect($input[0].files[0].name).to.equal('example.json')
+            })
+           
+    })
+
+   
+    it.only('Seleção de arquivos através de um alias',() => {
+        cy.fixture('example.json').as('sampleFile')        
+        cy.get('input[type="file"]#file-upload')
+            .should('not.have.value')
+            .selectFile('@sampleFile')
+            .should(($input) =>{
+                expect($input[0].files[0].name).to.equal('example.json')
+            })
+           
     })
   })
