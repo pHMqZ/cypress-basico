@@ -200,7 +200,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
           .should('not.be.visible')
       })
 
-      it('Teste de preenchimento de campo com .invoke()', () => {
+    //Teste de preenchimento com invoke
+    it('Teste de preenchimento de campo com .invoke()', () => {
         
         const longTest = Cypress._.repeat('0987654321', 200)
 
@@ -208,5 +209,18 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .invoke('val', longTest)
             .should('have.value', longTest)
     })
+
+    //Teste de requisições HTTP
+    it('Testes de requisições HTTP', () => {
+        cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+            .should((response) => {
+                const { status, statusText, body} = response
+                expect(status).to.equal(200)
+                expect(statusText).to.equal('OK')
+                expect(body).to.include('CAC TAT')
+            })
+    })
+
+    //Desafio 
 
   })
